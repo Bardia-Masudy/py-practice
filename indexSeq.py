@@ -15,7 +15,7 @@ text = str(args.text)
 k = int(args.k)
 rev = args.reverse
 
-def kmerize(text: int, k: int) -> dict:
+def indexKmers(text: int, k: int) -> dict:
     index = {}
     for i in range(len(text)-k+1):
         kmer = text[i:i+k]
@@ -27,7 +27,7 @@ def kmerize(text: int, k: int) -> dict:
             index.update({kmer: kmerValues})
     return index
 
-fwdIndex = kmerize(text, k)
+fwdIndex = indexKmers(text, k)
 if not rev: print(fwdIndex)
 else:
     combinedIndex = fwdIndex
@@ -35,7 +35,7 @@ else:
     revText = ''
     revValues = []
     for char in text: revText = complements[char] + revText # generate reverse complement
-    revIndex = kmerize(revText, k)
+    revIndex = indexKmers(revText, k)
     #print(fwdIndex)
     #print(revIndex)
     for key, values in revIndex.items():
