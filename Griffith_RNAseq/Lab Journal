@@ -1,0 +1,19 @@
+## First Steps:
+$ wget http://genomedata.org/rnaseq-tutorial/fasta/GRCh38/chr22_with_ERCC92.fa
+
+Downloaded chr22 + ERCC trascripts for analysis.
+
+
+$ cat chr22.fa | grep -v ">" | tr -dc a-z | wc -c
+
+Count how many lowercase letters (representing repeat sequences) are in chr22.fa (40.4% repeat)
+
+
+$ cat chr22.fa | grep -v ">" | grep -oi GAATTC | wc
+
+Find how many instances of EcoRI RE site occur in chr22.fa (8597)
+This is innacurate, I believe. Exercise uses Perl and gets (4054)
+
+$ grep ENST00000342247 chr22_with_ERCC92.gtf | less -p "exon\s" -S
+
+Find structure of a single transcript in GTF format.
