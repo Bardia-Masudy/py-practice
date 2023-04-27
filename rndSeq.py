@@ -21,12 +21,16 @@ end = args.end
 seq = ""
 dnaRNA = "ATGC"
 # Change to Uracil if RNA is desired.
-if seqType == "RNA":
-    dnaRNA = "AUGC"
+if seqType == "RNA": dnaRNA = "AUGC"
 # sequence generation, follows GC% provided, and appends start and end sequences if adaptors are desired.
 if seqType == "DNA" or seqType == "RNA":
     for _ in range(max(0, length-len(start)-len(end))):
-        seq += ''.join(choices("ATGC", weights=[(100-gc)/2, (100-gc)/2, gc/2, gc/2], k = 1))
+        seq += ''.join(choices(dnaRNA, weights=[(100-gc)/2, (100-gc)/2, gc/2, gc/2], k = 1))
+
+# temporary option for IUPAC ambiguous sequence generation while I develop a fix for pyfaidx 
+elif seqType == "IUPAC":
+    for _ in range(max(0, length-len(start)-len(end))):
+        seq += ''.join(choices("ACGTMRWSYKVHDBN", k = 1))
     
 elif seqType == "Protein":
     for _ in range(max(0,length-len(start)-len(end))):
